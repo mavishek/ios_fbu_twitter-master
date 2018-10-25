@@ -50,7 +50,7 @@ class APIManager: SessionManager {
         }
     }
     
-    static func logout() {
+    func logout() {
         // 1. Clear current user
         User.current = nil
         

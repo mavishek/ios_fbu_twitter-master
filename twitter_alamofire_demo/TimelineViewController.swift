@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimelineViewController: UIViewController , UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate {
+class TimelineViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
 
     var tweets: [Tweet] = []
     @IBOutlet weak var tableView: UITableView!
@@ -22,19 +22,18 @@ class TimelineViewController: UIViewController , UITableViewDataSource, UITableV
         tableView.dataSource = self
         tableView.delegate = self
         
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = 150
         
         getTweets()
         
-        refreshController = UIRefreshControl();
-        refreshController.addTarget(self, action: #selector(TimelineViewController.didPullToRefresh(_:)), for: .valueChanged)
-        tableView.insertSubview(refreshController, at: 0)
+        refreshControl = UIRefreshControl();
+        refreshControl.addTarget(self, action: #selector(TimelineViewController.didPullToRefresh(_:)), for: .valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
     }
 
     @IBAction func onLogoutButton(_ sender: Any) {
         // Copy this line once you've made the outlet
-        APIManager.sharedInstance!.logout() 
+        APIManager.shared.logout()
     }
     
     func getTweets() {
@@ -51,7 +50,7 @@ class TimelineViewController: UIViewController , UITableViewDataSource, UITableV
     
     func didPullToRefresh(_ refreshController: UIRefreshControl) {
         getTweets()
-        self.refreshController.endRefreshing()
+        self.refreshControl.endRefreshing()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,9 +58,11 @@ class TimelineViewController: UIViewController , UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        
         cell.tweet = tweets[indexPath.row]
-        cell.homeTimeline = self as TimelineViewController
+        
         return cell
     }
     

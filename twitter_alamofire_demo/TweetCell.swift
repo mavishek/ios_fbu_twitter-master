@@ -22,7 +22,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var retweetLabel: UILabel!
     
-    
+    var homeTimeline: TimelineViewController?
     
     var tweet: Tweet? {
         didSet {
@@ -36,14 +36,14 @@ class TweetCell: UITableViewCell {
             } else {
                 favoriteButton.setImage(UIImage(named: "favor-icon.png"), for: .normal)
             }
-            self.profilePicUrl = tweet?.user.profilePic
-            self.screenNameLabel.text = tweet?.user.screenName
-            self.usernameLabel.text = tweet?.user.name
+           // self.profilePicImage = tweet?.user!.profilePic
+            self.screenNameLabel.text = tweet?.user?.screenName
+            self.usernameLabel.text = tweet?.user?.name
             self.timestampLabel.text = tweet?.createdAtString
             self.tweetText.text = tweet?.text
-            self.profilePicImage.af_setImage(withURL: profilePicUrl!)
+            self.profilePicImage.af_setImage(withURL:(tweet?.user?.profilePic!)!)
             self.favoriteLabel.text = String(tweet!.favoriteCount!)
-            self.retweetLabel.text = String(tweet!.retweetCount)
+            self.retweetLabel.text = String(tweet!.retweetCount!)
         }
     }
     
@@ -54,7 +54,7 @@ class TweetCell: UITableViewCell {
                     print("Error favoriting tweet: \(error.localizedDescription)")
                 } else if let tweet = tweet {
                     print("Successfully favorited the following Tweet: \n\(tweet.text)")
-                    self.homeTimeline?.completeNetworkRequest()
+                    self.homeTimeline?.getTweets()
                 }
             }
         } else {
@@ -63,7 +63,8 @@ class TweetCell: UITableViewCell {
                     print("Error unfavoriting tweet: \(error.localizedDescription)")
                 } else if let tweet = tweet {
                     print("Successfully unfavorited the following Tweet: \n\(tweet.text)")
-                    self.homeTimeline?.completeNetworkRequest()
+                    self.homeTimeline?.getTweets()
+
                 }
             }
         }
@@ -77,7 +78,7 @@ class TweetCell: UITableViewCell {
                     print("Error retweeting tweet: \(error.localizedDescription)")
                 } else if let tweet = tweet {
                     print("Successfully retweeted the following Tweet: \n\(tweet.text)")
-                    self.homeTimeline?.completeNetworkRequest()
+                    self.homeTimeline?.getTweets()
                 }
             }
         } else {
@@ -87,7 +88,7 @@ class TweetCell: UITableViewCell {
                     print("Error unretweeting tweet: \(error.localizedDescription)")
                 } else if let tweet = tweet {
                     print("Successfully unretweeted the following Tweet: \n\(tweet.text)")
-                    self.homeTimeline?.completeNetworkRequest()
+                    self.homeTimeline?.getTweets()
                 }
             }
         }
