@@ -25,6 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = loginViewController
         }
         
+        if User.current != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let homeViewController = storyboard.instantiateViewController(withIdentifier: "TimelineViewController")
+            window?.rootViewController = homeViewController
+        }
+        
         return true
     }
     
