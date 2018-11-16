@@ -34,7 +34,11 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         
         authorLabel.text = user.name
         
-        screenName.text = user.screenName
+        screenName.text = "@" + String(user.screenName!)
+        
+        tweetField.text = ""
+        charCountLabel.text = ""
+        tweetField.delegate = self
     }
 
     @IBAction func didTapPost(_ sender: Any) {
@@ -43,7 +47,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
                 print("Error composing Tweet: \(error.localizedDescription)")
             } else if let tweet = tweet {
                 self.delegate?.did(post: tweet)
-                print("Compose Tweet Su ccess!")
+                print("Compose Tweet Success!")
                 self.dismiss(animated: true, completion: nil)
             }
         }

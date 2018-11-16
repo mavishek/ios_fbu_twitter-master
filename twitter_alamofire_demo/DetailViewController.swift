@@ -76,7 +76,7 @@ class DetailViewController: UIViewController {
             tweet.retweeted = true
             tweet.retweetCount! += 1
             self.RTLabel.text = String(tweet.retweetCount!)
-            self.RTButton.setImage(UIImage(named: "retweet-icon.png"), for: .normal)
+            self.RTButton.setImage(UIImage(named: "retweet-icon-green.png"), for: .normal)
             
             //APIManager Request from Cell
             APIManager.shared.retweet(tweet) { (tweet: Tweet?, error: Error?) in
@@ -87,11 +87,13 @@ class DetailViewController: UIViewController {
                 }
             }
         } else if (RTButton.isSelected == true) {
+            
             RTButton.isSelected = false
             tweet.retweeted = false
             tweet.retweetCount! -= 1
             self.RTLabel.text = String(tweet.retweetCount!)
-            self.RTButton.setImage(UIImage(named: "retweet-icon-green.png"), for: .normal)
+            self.RTButton.setImage(UIImage(named: "retweet-icon.png"), for: .normal)
+            
             //APIManager Request from Cell
             APIManager.shared.unretweet(tweet) { (tweet: Tweet?, error: Error?) in
                 if let  error = error {
@@ -111,7 +113,7 @@ class DetailViewController: UIViewController {
             tweet.favorited = true
             tweet.favoriteCount! += 1
             self.favLabel.text = String(tweet.favoriteCount!)
-            self.favButton.setImage(UIImage(named: "favor-icon.png"), for: .normal)
+            self.favButton.setImage(UIImage(named: "favor-icon-red.png"), for: .normal)
             
             //APIManager Request from Cell
             APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
@@ -126,7 +128,7 @@ class DetailViewController: UIViewController {
             tweet.favorited = false
             tweet.favoriteCount! -= 1
             self.favLabel.text = String( tweet.favoriteCount!)
-            self.favButton.setImage(UIImage(named: "favor-icon-red.png"), for: .normal)
+            self.favButton.setImage(UIImage(named: "favor-icon.png"), for: .normal)
             
             //APIManager Request from Cell
             APIManager.shared.unfavorite(tweet) { (tweet: Tweet?, error: Error?) in

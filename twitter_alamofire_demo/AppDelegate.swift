@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if User.current != nil {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let homeViewController = storyboard.instantiateViewController(withIdentifier: "TimelineViewController")
+            let homeViewController = storyboard.instantiateViewController(withIdentifier: "TabBarController")
             window?.rootViewController = homeViewController
         }
         

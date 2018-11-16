@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
         user = User.current
         self.profilePicUrl = user!.profilePic
         self.bannerPicUrl = user!.bannerPic
-        self.screenNameLabel.text = user!.screenName
+        self.screenNameLabel.text = "@" + String(user!.screenName!)
         self.userNameLabel.text = user!.name
         self.numTweetsLabel.text = String(user!.statusCount!)+" Tweets"
         self.numFollowersLabel.text = String(user!.followerCount!)+" Followers"

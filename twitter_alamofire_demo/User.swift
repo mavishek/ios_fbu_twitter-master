@@ -8,7 +8,7 @@
 
 import UIKit
 
-class User: NSObject {
+class User {
     var name: String?
     var screenName: String?
     var profilePic: URL?
@@ -22,7 +22,7 @@ class User: NSObject {
     var dictionary: [String: Any]?
     
     init(dictionary: [String : Any]) {
-        super.init()
+        self.dictionary = dictionary
         name = dictionary["name"] as? String
         screenName = dictionary["screen_name"] as? String
         if let profile:String = dictionary["profile_image_url_https"] as? String {
